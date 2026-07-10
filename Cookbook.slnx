@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/Cookbook.Api/Cookbook.Api.csproj"
+      Id="47b6e4a2-c5d3-4baa-8aff-37c48ddf41ae" />
+    <Project Path="src/Backend/Cookbook.Application/Cookbook.Application.csproj"
+      Id="12e93963-5387-45e6-bd80-cd5b14e6c2c3" />
+    <Project Path="src/Backend/Cookbook.Domain/Cookbook.Domain.csproj"
+      Id="cc77c30f-14d1-4e47-99dc-f2f6d3772856" />
+    <Project Path="src/Backend/Cookbook.Infrastructure/Cookbook.Infrastructure.csproj"
+      Id="c2a06ca7-2f67-4452-a688-fef33f2fd944" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Cookbook.Communication/Cookbook.Communication.csproj"
+      Id="cba92710-081e-4715-8323-d6d24a002b37" />
+    <Project Path="src/Shared/Cookbook.Exception/Cookbook.Exception.csproj"
+      Id="4ed00114-b2ff-4f91-83c0-7c5bd6386361" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CommonTestUtilities/CommonTestUtilities.csproj"
+      Id="22ad4f40-c7d6-4c6d-b1ba-e5419bd3e4b7" />
+    <Project Path="tests/Integrations.Tests/Integrations.Tests.csproj"
+      Id="a21b0ecf-1988-41d3-a7c4-78dbe4c20090" />
+    <Project Path="tests/UseCases.Tests/UseCases.Tests.csproj"
+      Id="90c34c2c-ab9d-4d89-bb1c-20406e112269" />
+    <Project Path="tests/Validators.Tests/Validators.Tests.csproj"
+      Id="94444039-d742-41bf-817d-783396296b8a" />
+  </Folder>
+</Solution>
