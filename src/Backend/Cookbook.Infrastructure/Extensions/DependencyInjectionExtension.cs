@@ -1,7 +1,9 @@
 ﻿using Cookbook.Domain.Repositories;
 using Cookbook.Domain.Repositories.User;
+using Cookbook.Domain.Security.PasswordHashing;
 using Cookbook.Infrastructure.DataAccess;
 using Cookbook.Infrastructure.DataAccess.Repositories;
+using Cookbook.Infrastructure.Security.PasswordHashing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ public static class DependencyInjectionExtension
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDbContext(services, configuration);
+        AddPasswordHasher(services);
         AddRepositories(services);
 
         return services;
@@ -27,6 +30,9 @@ public static class DependencyInjectionExtension
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
     }
+
+    private static void AddPasswordHasher(this IServiceCollection services) =>
+        services.AddScoped<IPasswordHasher, Argon2PasswordHasher>();
 
     private static void AddRepositories(this IServiceCollection services)
     {
