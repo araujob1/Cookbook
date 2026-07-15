@@ -3,7 +3,7 @@
 namespace Cookbook.Infrastructure.Migrations.Versions;
 
 [Migration(DatabaseVersions.CREATE_TABLE_USER, "Create users table")]
-public class Version0000001 : VersionBase
+public sealed class Version0000001 : VersionBase
 {
     public override void Up()
     {
