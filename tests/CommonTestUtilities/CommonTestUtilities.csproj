@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" />
+    <PackageReference Include="Moq" />
     <PackageReference Include="xunit.v3.extensibility.core" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Backend\Cookbook.Domain\Cookbook.Domain.csproj" />
     <ProjectReference Include="..\..\src\Shared\Cookbook.Communication\Cookbook.Communication.csproj" />
   </ItemGroup>
 
