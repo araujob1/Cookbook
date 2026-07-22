@@ -16,32 +16,37 @@ public static class DependencyInjectionExtension
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        AddDbContext(services, configuration);
-        AddMigrationRunner(services, configuration);
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        AddDbContext(services);
+        AddMigrationRunner(services);
         AddPasswordHasher(services);
         AddRepositories(services);
 
         return services;
     }
 
-    private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
+    private static void AddDbContext(IServiceCollection services)
     {
-        var connectionString = configuration.GetDbConnectionString();
-
-        services.AddDbContext<CookbookDbContext>(options =>
+        services.AddDbContext<CookbookDbContext>((serviceProvider, options) =>
         {
-            options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
+            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+            options
+                .UseNpgsql(configuration.GetDbConnectionString())
+                .UseSnakeCaseNamingConvention();
         });
     }
 
-    private static void AddMigrationRunner(IServiceCollection services, IConfiguration configuration)
+    private static void AddMigrationRunner(IServiceCollection services)
     {
-        var connectionString = configuration.GetDbConnectionString();
-
         services.AddFluentMigratorCore()
             .ConfigureRunner(runner => runner
                 .AddPostgres()
-                .WithGlobalConnectionString(connectionString)
+                .WithGlobalConnectionString(serviceProvider =>
+                    serviceProvider
+                        .GetRequiredService<IConfiguration>()
+                        .GetDbConnectionString())
                 .ScanIn(typeof(DatabaseVersions).Assembly).For.Migrations())
             .AddLogging(logging => logging.AddFluentMigratorConsole());
     }
