@@ -4,6 +4,6 @@ namespace Cookbook.Api.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class CookbookBaseController : ControllerBase
+public abstract class CookbookBaseController : ControllerBase
 {
 }

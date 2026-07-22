@@ -1,22 +1,25 @@
 using Cookbook.Api.Extensions;
 using Cookbook.Api.Filters;
+using Cookbook.Application.Extensions;
 using Cookbook.Infrastructure.Extensions;
 using Cookbook.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.AddOpenApi();
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 builder.Services.AddApplicationLocalization();
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .AddApplication();
 
 var app = builder.Build();
 
 app.UseApplicationLocalization();
-
-builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 
 app.Services.MigrateDatabase();
 
