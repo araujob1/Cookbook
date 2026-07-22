@@ -35,3 +35,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 await app.RunAsync();
+
+public sealed partial class Program
+{
+    private Program() { }
+}
