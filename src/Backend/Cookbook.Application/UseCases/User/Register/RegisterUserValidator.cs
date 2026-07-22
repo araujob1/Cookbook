@@ -1,4 +1,5 @@
 ﻿using Cookbook.Communication.Requests;
+using Cookbook.Domain.Extensions;
 using Cookbook.Exception.Resources;
 using FluentValidation;
 
@@ -26,7 +27,7 @@ public sealed class RegisterUserValidator : AbstractValidator<RequestRegisterUse
             .MaximumLength(2000)
             .WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH);
 
-        When(x => !string.IsNullOrWhiteSpace(x.Email), () =>
+        When(x => x.Email.IsNotEmpty(), () =>
         {
             RuleFor(x => x.Email)
                 .EmailAddress()
