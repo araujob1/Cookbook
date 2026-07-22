@@ -13,7 +13,7 @@ public sealed class ExceptionFilter : IExceptionFilter
         if (context.Exception is CookbookException cookbookException)
             HandleProjectException(cookbookException, context);
         else
-            ThrowUnknowException(context);
+            HandleUnknownException(context);
     }
 
     private static void HandleProjectException(CookbookException cookbookException, ExceptionContext context)
@@ -22,7 +22,7 @@ public sealed class ExceptionFilter : IExceptionFilter
         context.Result = new ObjectResult(new ResponseErrorJson(cookbookException.ErrorMessages));
     }
 
-    private static void ThrowUnknowException(ExceptionContext context)
+    private static void HandleUnknownException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
