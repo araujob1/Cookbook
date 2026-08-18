@@ -13,4 +13,7 @@ internal sealed class UserRepository(CookbookDbContext dbContext) : IUserReadOnl
 
     public async Task<bool> ExistActiveUserWithEmailAsync(Email email) =>
         await dbContext.Users.AnyAsync(x => x.IsActive && x.Email == email);
+
+    public async Task<User?> GetByEmailAsync(Email email) =>
+        await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.IsActive && x.Email == email);
 }
