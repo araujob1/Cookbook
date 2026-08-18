@@ -144,4 +144,7 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>An unexpected error occurred. Please try again later.</value>
   </data>
+  <data name="LOGIN_INVALID" xml:space="preserve">
+    <value>Invalid email or password.</value>
+  </data>
 </root>

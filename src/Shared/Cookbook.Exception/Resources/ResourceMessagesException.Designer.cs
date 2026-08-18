@@ -61,7 +61,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email address provided is already in use..
+        ///   Looks up a localized string similar to This email address is already registered. Please use another email address..
         /// </summary>
         public static string EMAIL_ALREADY_IN_USE {
             get {
@@ -70,7 +70,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please provide a valid email..
+        ///   Looks up a localized string similar to Enter a valid email address..
         /// </summary>
         public static string EMAIL_INVALID {
             get {
@@ -79,7 +79,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email must be at most 255 characters long..
+        ///   Looks up a localized string similar to Email address must be 255 characters or fewer..
         /// </summary>
         public static string EMAIL_MAX_LENGTH {
             get {
@@ -88,7 +88,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email is required..
+        ///   Looks up a localized string similar to Email address is required..
         /// </summary>
         public static string EMAIL_REQUIRED {
             get {
@@ -97,7 +97,16 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name must be at most 100 characters long..
+        ///   Looks up a localized string similar to Invalid email or password..
+        /// </summary>
+        public static string LOGIN_INVALID {
+            get {
+                return ResourceManager.GetString("LOGIN_INVALID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be 100 characters or fewer..
         /// </summary>
         public static string NAME_MAX_LENGTH {
             get {
@@ -115,7 +124,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password must be at most 2000 characters long..
+        ///   Looks up a localized string similar to Password must be 2,000 characters or fewer..
         /// </summary>
         public static string PASSWORD_MAX_LENGTH {
             get {
@@ -133,7 +142,7 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown error..
+        ///   Looks up a localized string similar to An unexpected error occurred. Please try again later..
         /// </summary>
         public static string UNKNOWN_ERROR {
             get {
