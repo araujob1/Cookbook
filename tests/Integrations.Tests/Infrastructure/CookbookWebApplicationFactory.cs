@@ -7,15 +7,23 @@ namespace Integrations.Tests.Infrastructure;
 
 public sealed class CookbookWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
+    private DatabaseSeed? _seed;
+
     private readonly PostgreSqlContainer _databaseContainer = new PostgreSqlBuilder("postgres:16")
         .WithDatabase("cookbook")
         .WithUsername("postgres")
         .WithPassword("postgres")
         .Build();
 
+    public DatabaseSeed Seed => _seed
+        ?? throw new InvalidOperationException("The database seed has not been initialized.");
+
     public async ValueTask InitializeAsync()
     {
         await _databaseContainer.StartAsync();
+
+        var databaseSeeder = new DatabaseSeeder(Services);
+        _seed = await databaseSeeder.SeedAsync();
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
