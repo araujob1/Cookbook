@@ -6,7 +6,6 @@ using Integrations.Tests.Infrastructure;
 using Shouldly;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace Integrations.Tests.User.Register;
@@ -19,15 +18,14 @@ public sealed class RegisterUserTest(CookbookWebApplicationFactory factory) : Co
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
-        var cancellationToken = TestContext.Current.CancellationToken;
 
-        var response = await Client.PostAsJsonAsync(REQUEST_URI, request, cancellationToken);
+        var response = await Post(REQUEST_URI, request);
 
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
 
-        await using var responseBody = await response.Content.ReadAsStreamAsync(cancellationToken);
+        await using var responseBody = await response.Content.ReadAsStreamAsync(TestCancellationToken);
 
-        var responseData = await JsonDocument.ParseAsync(responseBody, cancellationToken: cancellationToken);
+        var responseData = await JsonDocument.ParseAsync(responseBody, cancellationToken: TestCancellationToken);
 
         responseData
             .RootElement
@@ -44,18 +42,14 @@ public sealed class RegisterUserTest(CookbookWebApplicationFactory factory) : Co
         {
             Name = string.Empty
         };
-        var cancellationToken = TestContext.Current.CancellationToken;
 
-        Client.DefaultRequestHeaders.AcceptLanguage.Clear();
-        Client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(culture);
-
-        var response = await Client.PostAsJsonAsync(REQUEST_URI, request, cancellationToken);
+        var response = await Post(REQUEST_URI, request, culture);
 
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
-        await using var responseBody = await response.Content.ReadAsStreamAsync(cancellationToken);
+        await using var responseBody = await response.Content.ReadAsStreamAsync(TestCancellationToken);
 
-        var responseData = await JsonDocument.ParseAsync(responseBody, cancellationToken: cancellationToken);
+        var responseData = await JsonDocument.ParseAsync(responseBody, cancellationToken: TestCancellationToken);
 
         var errorMessages = responseData
             .RootElement
