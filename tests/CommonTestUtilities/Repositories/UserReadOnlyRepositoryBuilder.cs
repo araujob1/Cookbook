@@ -1,3 +1,4 @@
+using Cookbook.Domain.Entities;
 using Cookbook.Domain.Repositories.User;
 using Cookbook.Domain.ValueObjects;
 using Moq;
@@ -16,6 +17,11 @@ public sealed class UserReadOnlyRepositoryBuilder
     public void ExistActiveUserWithEmailAsync(Email email)
     {
         _mock.Setup(repository => repository.ExistActiveUserWithEmailAsync(email)).ReturnsAsync(true);
+    }
+
+    public void GetByEmailAsync(User user)
+    {
+        _mock.Setup(repository => repository.GetByEmailAsync(user.Email)).ReturnsAsync(user);
     }
 
     public IUserReadOnlyRepository Build() => _mock.Object;
