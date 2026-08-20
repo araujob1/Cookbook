@@ -32,6 +32,13 @@ public sealed class RegisterUserTest(CookbookWebApplicationFactory factory) : Co
             .GetProperty("name")
             .GetString()
             .ShouldNotBeNullOrWhiteSpace();
+
+        responseData
+            .RootElement
+            .GetProperty("tokens")
+            .GetProperty("accessToken")
+            .GetString()
+            .ShouldNotBeNullOrWhiteSpace();
     }
 
     [Theory]
