@@ -36,6 +36,13 @@ public sealed class LoginTest(CookbookWebApplicationFactory factory) : CookbookC
             .GetProperty("name")
             .GetString()
             .ShouldBe(Seed.Users.User1.Entity.Name.Value);
+
+        responseData
+            .RootElement
+            .GetProperty("tokens")
+            .GetProperty("accessToken")
+            .GetString()
+            .ShouldNotBeNullOrWhiteSpace();
     }
 
     [Theory]
