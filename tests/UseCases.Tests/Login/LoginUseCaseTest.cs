@@ -67,10 +67,14 @@ public class LoginUseCaseTest
         });
     }
 
-    private static LoginUseCase CreateUseCase(Cookbook.Domain.Entities.User? user = null, string? password = null)
+    private static LoginUseCase CreateUseCase(
+        Cookbook.Domain.Entities.User? user = null,
+        string? password = null,
+        string? accessToken = null)
     {
         var readOnlyRepository = new UserReadOnlyRepositoryBuilder();
         var passwordHasherBuilder = new PasswordHasherBuilder();
+        var accessTokenGenerator = AccessTokenGenerator.Build(accessToken);
 
         if (user is not null)
             readOnlyRepository.GetByEmailAsync(user);
@@ -78,6 +82,9 @@ public class LoginUseCaseTest
         if (password.IsNotEmpty())
             passwordHasherBuilder.VerifyPassword(password);
 
-        return new LoginUseCase(readOnlyRepository.Build(), passwordHasherBuilder.Build());
+        return new LoginUseCase(
+            readOnlyRepository.Build(),
+            passwordHasherBuilder.Build(),
+            accessTokenGenerator);
     }
 }

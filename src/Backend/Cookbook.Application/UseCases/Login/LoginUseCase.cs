@@ -2,6 +2,7 @@
 using Cookbook.Communication.Responses;
 using Cookbook.Domain.Repositories.User;
 using Cookbook.Domain.Security.PasswordHashing;
+using Cookbook.Domain.Security.Tokens;
 using Cookbook.Domain.ValueObjects;
 using Cookbook.Exception.Exceptions;
 
@@ -9,7 +10,8 @@ namespace Cookbook.Application.UseCases.Login;
 
 public sealed class LoginUseCase(
     IUserReadOnlyRepository readOnlyRepository,
-    IPasswordHasher passwordHasher) : ILoginUseCase
+    IPasswordHasher passwordHasher,
+    IAccessTokenGenerator accessTokenGenerator) : ILoginUseCase
 {
     public async Task<ResponseRegisterUserJson> ExecuteAsync(RequestLoginJson request)
     {
@@ -21,6 +23,8 @@ public sealed class LoginUseCase(
         if (isPasswordValid is false)
             throw new InvalidLoginException();
 
-        return new ResponseRegisterUserJson(user.Name.Value);
+        return new ResponseRegisterUserJson(
+            user.Name.Value,
+            new ResponseTokensJson(accessTokenGenerator.Generate(user)));
     }
 }

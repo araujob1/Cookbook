@@ -4,6 +4,7 @@ using Cookbook.Communication.Responses;
 using Cookbook.Domain.Repositories;
 using Cookbook.Domain.Repositories.User;
 using Cookbook.Domain.Security.PasswordHashing;
+using Cookbook.Domain.Security.Tokens;
 using Cookbook.Domain.ValueObjects;
 using Cookbook.Exception.Exceptions;
 using Cookbook.Exception.Resources;
@@ -15,7 +16,8 @@ public sealed class RegisterUserUseCase(
     IUnitOfWork unitOfWork,
     IUserReadOnlyRepository readOnlyRepository,
     IUserWriteOnlyRepository writeOnlyRepository,
-    IPasswordHasher passwordHasher) : IRegisterUserUseCase
+    IPasswordHasher passwordHasher,
+    IAccessTokenGenerator accessTokenGenerator) : IRegisterUserUseCase
 {
     public async Task<ResponseRegisterUserJson> ExecuteAsync(RequestRegisterUserJson request)
     {
@@ -28,7 +30,9 @@ public sealed class RegisterUserUseCase(
 
         await unitOfWork.CommitAsync();
 
-        return new ResponseRegisterUserJson(user.Name.Value);
+        return new ResponseRegisterUserJson(
+            user.Name.Value,
+            new ResponseTokensJson(accessTokenGenerator.Generate(user)));
     }
 
     private async Task ValidateRequest(RequestRegisterUserJson request)

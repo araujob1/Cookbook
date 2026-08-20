@@ -63,17 +63,23 @@ public sealed class RegisterUserUseCaseTest
         });
     }
 
-    private static RegisterUserUseCase CreateUseCase(string? email = null)
+    private static RegisterUserUseCase CreateUseCase(string? email = null, string? accessToken = null)
     {
         var unitOfWork = UnitOfWorkBuilder.Build();
         var writeOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
         var passwordHasher = new PasswordHasherBuilder().Build();
+        var accessTokenGenerator = AccessTokenGenerator.Build(accessToken);
 
         var readOnlyRepository = new UserReadOnlyRepositoryBuilder();
 
         if (email is not null)
             readOnlyRepository.ExistActiveUserWithEmailAsync(new Email(email));
 
-        return new RegisterUserUseCase(unitOfWork, readOnlyRepository.Build(), writeOnlyRepository, passwordHasher);
+        return new RegisterUserUseCase(
+            unitOfWork,
+            readOnlyRepository.Build(),
+            writeOnlyRepository,
+            passwordHasher,
+            accessTokenGenerator);
     }
 }

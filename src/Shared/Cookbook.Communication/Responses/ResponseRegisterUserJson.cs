@@ -1,3 +1,3 @@
 ﻿namespace Cookbook.Communication.Responses;
 
-public sealed record ResponseRegisterUserJson(string Name);
+public sealed record ResponseRegisterUserJson(string Name, ResponseTokensJson Tokens);
