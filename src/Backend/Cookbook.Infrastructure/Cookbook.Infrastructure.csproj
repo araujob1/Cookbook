@@ -11,6 +11,8 @@
     <PackageReference Include="FluentMigrator" />
     <PackageReference Include="FluentMigrator.Runner.Postgres" />
     <PackageReference Include="Konscious.Security.Cryptography.Argon2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
 
