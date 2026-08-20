@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.Generators;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security;
@@ -16,17 +17,19 @@ public class LoginUseCaseTest
     public async Task Success()
     {
         var (user, _) = UserBuilder.Build();
+        var accessToken = TextGenerator.Words(20);
         var request = RequestLoginJsonBuilder.Build() with
         {
             Email = user.Email.Value
         };
 
-        var useCase = CreateUseCase(user, request.Password);
+        var useCase = CreateUseCase(user, request.Password, accessToken);
 
         var result = await useCase.ExecuteAsync(request);
 
         result.ShouldNotBeNull();
         result.Name.ShouldNotBeNullOrWhiteSpace();
+        result.Tokens.AccessToken.ShouldBe(accessToken);
     }
 
     [Fact]

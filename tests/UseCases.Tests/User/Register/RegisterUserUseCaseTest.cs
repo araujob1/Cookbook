@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.ClassData;
+using CommonTestUtilities.Generators;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security;
@@ -16,13 +17,15 @@ public sealed class RegisterUserUseCaseTest
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
+        var accessToken = TextGenerator.Words(20);
 
-        var useCase = CreateUseCase();
+        var useCase = CreateUseCase(accessToken: accessToken);
 
         var result = await useCase.ExecuteAsync(request);
 
         result.ShouldNotBeNull();
         result.Name.ShouldNotBeNullOrWhiteSpace();
+        result.Tokens.AccessToken.ShouldBe(accessToken);
     }
 
     [Theory]
