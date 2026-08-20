@@ -33,7 +33,9 @@ public sealed class CookbookWebApplicationFactory : WebApplicationFactory<Progra
         {
             configuration.AddInMemoryCollection(new Dictionary<string, string?>
             {
-                ["ConnectionStrings:DefaultConnection"] = _databaseContainer.GetConnectionString()
+                ["ConnectionStrings:DefaultConnection"] = _databaseContainer.GetConnectionString(),
+                ["Jwt:ExpirationTimeMinutes"] = "1000",
+                ["Jwt:SigningKey"] = "giKjBYhx756Hk0xhtD2BSl3lRKbvboVQ"
             });
         });
     }

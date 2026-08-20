@@ -14,7 +14,7 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddApplicationLocalization();
 
 builder.Services
-    .AddInfrastructure(builder.Configuration)
+    .AddInfrastructure()
     .AddApplication();
 
 var app = builder.Build();
