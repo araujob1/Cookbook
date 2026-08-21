@@ -147,4 +147,13 @@
   <data name="LOGIN_INVALID" xml:space="preserve">
     <value>E-mail ou senha inválidos.</value>
   </data>
+  <data name="ACCESS_TOKEN_REQUIRED" xml:space="preserve">
+    <value>Esta solicitação requer um token de acesso.</value>
+  </data>
+  <data name="RESOURCE_ACCESS_DENIED" xml:space="preserve">
+    <value>Acesso ao recurso negado.</value>
+  </data>
+  <data name="TOKEN_EXPIRED" xml:space="preserve">
+    <value>O token expirou.</value>
+  </data>
 </root>

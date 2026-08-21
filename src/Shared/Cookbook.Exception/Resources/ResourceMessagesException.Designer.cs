@@ -61,6 +61,15 @@ namespace Cookbook.Exception.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This request requires an access token..
+        /// </summary>
+        public static string ACCESS_TOKEN_REQUIRED {
+            get {
+                return ResourceManager.GetString("ACCESS_TOKEN_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This email address is already registered. Please use another email address..
         /// </summary>
         public static string EMAIL_ALREADY_IN_USE {
@@ -104,7 +113,7 @@ namespace Cookbook.Exception.Resources {
                 return ResourceManager.GetString("LOGIN_INVALID", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Name must be 100 characters or fewer..
         /// </summary>
@@ -138,6 +147,24 @@ namespace Cookbook.Exception.Resources {
         public static string PASSWORD_REQUIRED {
             get {
                 return ResourceManager.GetString("PASSWORD_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Access to the resource denied..
+        /// </summary>
+        public static string RESOURCE_ACCESS_DENIED {
+            get {
+                return ResourceManager.GetString("RESOURCE_ACCESS_DENIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The token has expired..
+        /// </summary>
+        public static string TOKEN_EXPIRED {
+            get {
+                return ResourceManager.GetString("TOKEN_EXPIRED", resourceCulture);
             }
         }
         
