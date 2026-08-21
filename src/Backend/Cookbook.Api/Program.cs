@@ -11,7 +11,9 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-builder.Services.AddApplicationLocalization();
+builder.Services
+    .AddApplicationLocalization()
+    .AddApplicationAuthentication(builder.Configuration);
 
 builder.Services
     .AddInfrastructure()
@@ -30,6 +32,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
