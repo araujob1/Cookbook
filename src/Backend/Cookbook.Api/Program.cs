@@ -3,11 +3,13 @@ using Cookbook.Api.Filters;
 using Cookbook.Application.Extensions;
 using Cookbook.Infrastructure.Extensions;
 using Cookbook.Infrastructure.Migrations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
-builder.Services.AddOpenApi();
+builder.Services.AddApplicationOpenApi();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -28,6 +30,8 @@ app.Services.MigrateDatabase();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+        options.AddPreferredSecuritySchemes(JwtBearerDefaults.AuthenticationScheme));
 }
 
 app.UseHttpsRedirection();
